@@ -1,0 +1,18 @@
+form {
+  max-width: 500px;
+}
+form input, form select {
+  border: none;
+  border-bottom: 2px solid var(--main-color);
+}
+form input:focus, form select:focus {
+  outline: none;
+}
+form button {
+  font-size: 1.2rem;
+}
+
+img {
+  max-width: 500px;
+  border-radius: 50%;
+}/*# sourceMappingURL=forms.css.map */

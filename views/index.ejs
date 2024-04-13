@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="shortcut icon" href="/images/assets/icon2.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/general.css">
+    <link rel="stylesheet" href="/stylesheets/index.css">
+  </head>
+  <body>
+    <header>
+      <%- include('./includes/navbar.ejs') %>
+    </header>
+    <main>
+      <section class="land container-fluid d-flex flex-column justify-content-center align-items-center text-center">
+          <article>
+            <h2>Welcome to</h2>
+            <img src="/images/assets/vase.png" alt="Icono de web en forma de vasija">
+            <h1>Rarity Realm</h1>
+          </article>
+      </section>
+
+      <section class="collectors py-5">
+        <div class="container-fluid">
+          <article class="py-5 text-light">
+            <h2 class="text-center">Discover our collectors</h2>
+            <p class="mb-0 text-center">More than 1 million users around the world</p>
+            <p class="mb-0 text-center">More than 14 million collections</p>
+            <p class="mb-0 text-center">More than 85 million items</p>
+          </article>
+        </div>
+        <div class="container-xxl text-center">
+          <div class="row py-5">
+            <% result.forEach(collector  => { %>
+              <div class="col-md-6 col-xl-3 collector" onclick="window.location.href='/collectors/<%= collector.collector_id %>'">
+                <div class="photo p-2 rounded-circle mx-auto">
+                  <img class="rounded-circle" src="/images/collectors/<%= collector.collector_img %>" alt="Foto de colecionista 1">
+                </div>
+                <h3><%= collector.nick %></h3>
+              </div>
+            <% }) %>
+          </div>
+          <button onclick="window.location.href='/collectors/register'">Join Us</button>
+        </div>
+      </section>
+
+    </main>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

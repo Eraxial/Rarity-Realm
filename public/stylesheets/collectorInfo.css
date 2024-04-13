@@ -1,0 +1,95 @@
+@font-face {
+  font-family: main;
+  src: url("/fonts/AllertaStencil-Regular.ttf");
+}
+h1 {
+  font-family: main;
+}
+
+h2 {
+  color: var(--alter-bright-color);
+  font-size: 3rem;
+}
+
+article {
+  background: linear-gradient(125deg, var(--alter-color) 0%, var(--alter-color) 15%, white 15%, white 20%, var(--main-color) 20%, var(--main-color) 80%, white 80%, white 85%, var(--alter-color) 85%, var(--alter-color) 100%);
+}
+
+.info img {
+  border-radius: 50%;
+  width: clamp(360px, 40vw, 650px);
+  border: 10px solid var(--main-color);
+}
+.info table th, .info table td {
+  padding: 15px;
+  font-size: 1.5rem;
+}
+
+hr {
+  opacity: 1;
+  border-color: white;
+  border-width: 4px;
+  margin-bottom: -35px;
+  z-index: -1001;
+}
+
+button {
+  font-size: 1.5rem;
+  z-index: 10001;
+  background-color: white;
+  padding-inline: 40px;
+}
+
+.items {
+  border-radius: 50px;
+  background-color: var(--main-color);
+}
+.items button {
+  box-shadow: 10px 10px lightblue;
+}
+.items button:active {
+  box-shadow: none;
+  translate: 10px 10px;
+}
+.items p {
+  color: var(--main-color);
+}
+.items img {
+  max-width: 200px;
+  border-radius: 25px;
+}
+@media (width < 1200px) {
+  .items img {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+.list {
+  background-color: white;
+  border-radius: 25px;
+  transition: scale 0.2s;
+}
+.list button {
+  box-shadow: none;
+}
+.list button:active {
+  translate: 0;
+  scale: 0.95;
+}
+
+.head {
+  border-bottom: 2px solid var(--main-color);
+}
+.head p {
+  margin-bottom: 0;
+}
+@media (width < 992px) {
+  .head {
+    border-bottom: none;
+  }
+  .head p {
+    margin-bottom: 16px;
+    text-wrap: nowrap;
+  }
+}/*# sourceMappingURL=collectorInfo.css.map */

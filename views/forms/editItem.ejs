@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link rel="shortcut icon" href="/images/assets/icon2.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/general.css">
+    <link rel="stylesheet" href="/stylesheets/forms.css">
+  </head>
+  <body>
+
+    <header>
+      <%- include('../includes/navbar.ejs') %>
+    </header>
+
+    <main>
+      <div class="container-xxl">
+        <h1 class="text-center">Edit</h1>
+        <div class="row">
+          <div class="col photo">
+            <img src="/images/items/<%= result.item_img %>" alt="">
+          </div>
+          <div class="col">
+            <form class="d-flex flex-column gap-4" action="/collectors/<%= id %>/editItem/<%= result.item_id %>" method="post">
+              <label class="d-flex flex-column">
+                Name
+                <input type="text" name="item_name" value="<%= result.item_name %>">
+              </label>
+              <label class="d-flex flex-column">
+                Purchase Year
+                <input type="text" name="item_purchaseyear" value="<%= result.item_purchaseyear %>">
+              </label>
+              <label class="d-flex flex-column">
+                Description
+                <input type="text" name="item_description" value="<%= result.item_description %>">
+              </label>
+              <label class="d-flex flex-column ">
+                Collection ID
+                <select name="collection_id" id="">
+                  <option selected value="<%= result.collection_id %>"><%= result.collection_name %></option>
+                  <% collections.forEach(collection => { %>
+                    <% if (collection.collection_id != result.collection_id){ %>
+                      <option value="<%= collection.collection_id %>"><%= collection.collection_name %></option>
+                    <% } %>
+                  <% }) %>
+                </select>
+              </label>
+              <label class="d-flex flex-column ">
+                Category ID
+                <select name="category_id" id="">
+                  <option selected value="<%= result.category_id %>"><%= result.category_name %></option>
+                  <% categories.forEach(category => { %>
+                    <% if (category.category_id != result.category_id){ %>
+                      <option value="<%= category.category_id %>"><%= category.category_name %></option>
+                    <% } %>
+                  <% }) %>
+                </select>
+              </label>
+              <div class="d-flex gap-3">
+                <button>Aceptar</button>
+                <button type="button" onclick="window.location.href='/collectors/<%= id %>'">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
