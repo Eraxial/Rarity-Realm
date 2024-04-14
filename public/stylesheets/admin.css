@@ -1,0 +1,43 @@
+.button {
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s;
+  box-shadow: none;
+}
+.button:hover {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+.button:focus {
+  background-color: var(--main-color);
+  color: white;
+}
+.button:active {
+  translate: 0;
+}
+
+th {
+  padding-inline: 40px;
+  padding-block: 25px;
+}
+
+td {
+  padding-block: 5px;
+  padding-inline: 40px;
+}
+
+img {
+  width: 50px;
+}
+
+.icon {
+  width: 25px;
+  filter: grayscale(1);
+  transition: filter 0.1s, scale 0.1s;
+  cursor: pointer;
+}
+.icon:hover {
+  filter: none;
+}
+.icon:active {
+  scale: 0.9;
+}/*# sourceMappingURL=admin.css.map */

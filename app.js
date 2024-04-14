@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const collectorRouter = require('./routes/collectors');
 const collectionRouter = require('./routes/collections')
 const itemRouter = require('./routes/items');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/collectors', collectorRouter);
 app.use('/collections', collectionRouter);
 app.use('/items', itemRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

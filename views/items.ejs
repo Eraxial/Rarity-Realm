@@ -7,14 +7,73 @@
     <link rel="shortcut icon" href="/images/assets/icon2.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/stylesheets/general.css">
+    <link rel="stylesheet" href="/stylesheets/items.css">
   </head>
   <body>
 
     <header>
       <%- include('./includes/navbar.ejs') %>
     </header>
+    
+    <main>
+      <h1 class="my-5 py-5 head text-center">Items</h1>
+      
+      <section class="container-xxl d-flex flex-column align-items-center">
+        <p class="fs-4 fw-bold">Filter by:</p>
+        <form class="pb-5 d-flex flex-column align-items-center" action="/items/filter" method="post">
+          <div>
+            <input type="radio" name="options" id="option1" value="item.item_name" hidden>
+            <label for="option1">
+              Name
+            </label>
+            <input type="radio" name="options" id="option2" value="category.category_name" hidden>
+            <label for="option2">
+              Category
+            </label>
+            <input type="radio" name="options" id="option3" value="collection.collection_name" hidden>
+            <label for="option3">
+              Collection
+            </label>
+            <input type="radio" name="options" id="option4" value="collector.nick" hidden>
+            <label for="option4">
+              Collector
+            </label>
+            <input type="search" name="filter" autofocus>
+          </div>
 
-    <h1>Items</h1>
+          <div class="mt-4">
+            <button class="fs-6 me-4">Accept</button>
+            <button class="fs-6 me-4" type="reset">Clean</button>
+            <button class="fs-6" type="button" onclick="window.location.href='/items'">Reset</button>
+          </div>
+        </form>
+
+      </section>
+
+      <section class="container-xxl">
+        <div class="row row-gap-5">
+          <% result.forEach(item => { %>
+
+            <div class="col-md-6 col-xl-3">
+              <div class="card border-0 mx-auto" style="width: 18rem;">
+                <div class="card-head ratio ratio-16x9">
+                  <img class="object-fit-cover rounded-top-4" src="/images/items/<%= item.item_img %>" class="card-img-top" alt="Imagen de la colección">
+                </div>
+                <div class="card-body text-center">
+                  <h5 class="card-title text-start"><%= item.item_name %></h5>
+                  <h6 class="card-subtitle text-start mb-2">Collection: <%= item.collection_name %></h6>
+                  <h6 class="card-subtitle text-start">Collector: <%= item.nick %></h6>
+                  <p class="card-text text-start"><%= item.item_description %></p>
+                  <button class="fs-6" onclick="window.location.href='/items/<%= item.item_id %>'">View</button>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+
+        </div>
+      </section>
+    </main>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -17,13 +17,13 @@
 
     <main>
       <div class="container-xxl">
-        <h1 class="text-center">Edit</h1>
+        <h1 class="text-center">Edit Item</h1>
         <div class="row">
-          <div class="col photo">
+          <div class="col-xl-6 photo text-center text-xl-end">
             <img src="/images/items/<%= result.item_img %>" alt="">
           </div>
-          <div class="col">
-            <form class="d-flex flex-column gap-4" action="/collectors/<%= id %>/editItem/<%= result.item_id %>" method="post">
+          <div class="col-xl-6">
+            <form class="mx-auto ms-xl-0 d-flex flex-column gap-4" action="/collectors/<%= id %>/editItem/<%= result.item_id %>" method="post">
               <label class="d-flex flex-column">
                 Name
                 <input type="text" name="item_name" value="<%= result.item_name %>">

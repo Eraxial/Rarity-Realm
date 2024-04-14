@@ -3,27 +3,70 @@ const bcrypt = require('bcrypt');
 
 class CollectorController {
 
-  showAllCollectors = (req, res) => {
-    res.render ('collectors', {title: 'Collectors'});
+  showRegisterForm = (req, res) => {
+    res.render('./forms/register', {title: 'Register'})
   }
 
-  showRegisterForm = (req, res) => {
-    res.render('register', {title: 'Register'})
+  showLoginForm = (req, res) => {
+    res.render('./forms/login', {title: 'Login'})
   }
 
   registerCollector = (req, res) => {
     const {nick, email, password} = req.body;
-  
-    let sql = 'INSERT INTO collector (nick, email, password, img) VALUES (?, ?, ?, "default.png");'
+
+    console.log(req.body);
 
     bcrypt.hash(password, 10, (err, hash) =>{
       if (err) throw err;
+      console.log(err)
 
-      connection.query(sql, [nick, email, hash], error => {
+      const img = req.file ? req.file.filename : 'human.png';
+      let sql = 'INSERT INTO collector (nick, email, password, collector_img) VALUES (?, ?, ?, ?);'
+
+      connection.query(sql, [nick, email, hash, img], error => {
         if (error) throw error;
-        res.redirect('/');
+        let sql2 = 'SELECT max(collector_id)max FROM collector';
+        connection.query(sql2, (error2, result) => {
+          if (error2) throw error2;
+          const id = result[0].max;
+          res.redirect(`/collectors/${result[0].max}/logged`);
+        })
       })
     })
+  }
+
+  login = (req, res) => {
+    const {email, password} = req.body;
+    
+    if(email == "" || password == ""){
+      res.render('../forms/login', {title: 'Login', message: 'Debes rellenar todos los campos'})
+    } else {
+
+      let sql = 'SELECT * FROM collector WHERE email = ?'
+      connection.query(sql, [email], (err, result) => {
+        if (err) throw err;
+
+        if (result.length == 1) {
+          if (result[0].is_admin == 1) {
+            res.redirect('/admin')
+          }else{
+            let hash = result[0].password;
+            bcrypt.compare(password, hash, (error, restultCompare) => {
+              if (restultCompare) {
+                let id = result[0].collector_id;
+                res.redirect(`/collectors/${result[0].collector_id}/logged`)
+              } else {
+                res.render('../forms/login', {title: 'Login', message: 'Credenciales incorrectos'})
+              }
+            })
+          }
+        } else {
+          res.render('../forms/login', {title: 'Login', message: 'Credenciales incorrectos'})
+        }
+
+      })
+    }
+
   }
 
   showCollector = (req, res) => {
@@ -70,10 +113,57 @@ class CollectorController {
         collector_img: result[0].collector_img,
         items
       }
+      res.render('./oneInfo/oneCollector', {title: result[0].nick, finalResult});
+      
+    })
+  }
+
+  showCollectorNoPerm = (req, res) => {
+    const {id} = req.params;
+    
+    let sql = `SELECT collector.*, item.*, collection.collection_name, category.category_name 
+    from collector 
+      LEFT JOIN item on collector.collector_id = item.collector_id and item.item_isdeleted = 0
+          LEFT JOIN collection on item.collection_id = collection.collection_id 
+          LEFT JOIN category ON item.category_id = category.category_id
+          WHERE collector.collector_id = ${id};` 
+
+    connection.query(sql, (err, result) => {
+      if (err) throw err;
+
+      let finalResult = {};
+      let items = [];
+      let item = {};
+
+      for (let item of result){
+        if(item.item_id){
+          item = {
+            item_id: item.item_id,
+            item_name: item.item_name,
+            item_purchaseyear: item.item_purchaseyear,
+            item_description: item.item_description,
+            item_img: item.item_img,
+            collection_id: item.collection_id,
+            collection_name: item.collection_name,
+            category_id: item.category_id,
+            category_name: item.category_name
+          }
+          items.push(item);
+        }
+      }
+      finalResult = {
+        collector_id: result[0].collector_id,
+        nick: result[0].nick,
+        name: result[0].name,
+        last_name: result[0].last_name,
+        interest: result[0].interest,
+        collector_img: result[0].collector_img,
+        items
+      }
 
       console.log(finalResult);
       
-      res.render('oneCollector', {title: result[0].nick, finalResult});
+      res.render('./oneInfo/oneCollectorNoPerm', {title: result[0].nick, finalResult});
       
     })
   }
@@ -156,7 +246,7 @@ class CollectorController {
     connection.query(sql, [itemId], err => {
       if (err)throw err;
 
-      res.redirect(`/collectors/${id}`)
+      res.redirect(`/collectors/${id}/logged`)
     })
   }
 }

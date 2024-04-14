@@ -1,4 +1,13 @@
+img {
+  max-width: 400px;
+  border-radius: 50%;
+}
+
 form {
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   input, select {
     border: none;
     border-bottom: 2px solid var(--main-color);
@@ -13,9 +22,21 @@ form {
   button {
     font-size: 1.2rem;
   }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  img {
+    width: 60px;
+    border-radius: 0;
+  }
 }
 
-img {
-  max-width: 500px;
-  border-radius: 50%;
+input[type = radio] {
+  border: 1px solid #000;;
 }
+
+
+

@@ -5,6 +5,14 @@
   --alter-color: #A9927D;
   --alter-bright-color: #CBBEB3;
 }
+@font-face {
+  font-family: main;
+  src: url("/fonts/AllertaStencil-Regular.ttf");
+}
+
+.head {
+  background: linear-gradient(125deg, var(--alter-color) 0%, var(--alter-color) 15%, white 15%, white 20%, var(--main-color) 20%, var(--main-color) 80%, white 80%, white 85%, var(--alter-color) 85%, var(--alter-color) 100%);
+}
 
 .bg-main {
   background-color: var(--main-color);
@@ -24,8 +32,23 @@
 .navbar img {
   width: 50px;
 }
+.navbar .button {
+  border: 3px solid var(--main-emphasys-color);
+  background-color: transparent;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding-inline: 16px;
+  padding-bottom: 3px;
+  transition: background-color 0.2s, translate 0.1s;
+}
+.navbar .button:hover {
+  background-color: var(--main-emphasys-color);
+}
+.navbar .button:active {
+  translate: 1px 3px;
+}
 
-button {
+main button {
   border-radius: 50px;
   font-size: 2rem;
   padding: 3px 25px 5px 25px;
@@ -35,12 +58,17 @@ button {
   box-shadow: 10px 10px var(--main-color);
   transition: box-shadow 0.1s, translate 0.1s, background-color 0.2s, color 0.2s, border-color 0.2s;
 }
-button:active {
+main button:active {
   box-shadow: none;
   translate: 10px 10px;
 }
-button:hover {
+main button:hover {
   background-color: var(--main-emphasys-color);
   color: white;
   border-color: var(--main-emphasys-color);
+}
+
+.head {
+  font-family: main;
+  color: var(--alter-bright-color);
 }/*# sourceMappingURL=general.css.map */
