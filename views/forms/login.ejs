@@ -21,11 +21,21 @@
         <p style="color:red"><%= typeof message !='undefined' ? message: null %></p>
         <label >
           Email
-          <input type="text" name="email">
+          <input type="text" name="email" value="<%= values.email %>">
+          <% validations.forEach(e => { %>
+            <% if(e.path == 'email') { %>
+              <p style="color: red;"><%= e.msg %></p>
+            <% } %>    
+          <% }) %>
         </label>
         <label >
           Password
-          <input type="text" name="password">
+          <input type="text" name="password" value="<%= values.password %>">
+          <% validations.forEach(e => { %>
+            <% if(e.path == 'password') { %>
+              <p style="color: red;"><%= e.msg %></p>
+            <% } %>    
+          <% }) %>
         </label>
         <div class="d-flex gap-4">
           <button>Aceptar</button>

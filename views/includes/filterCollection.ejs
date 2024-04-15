@@ -1,0 +1,42 @@
+<section class="container-xxl d-flex flex-column align-items-center">
+  <p class="fs-4 fw-bold">Filter by:</p>
+  <form class="w-100 pb-5 d-flex flex-column align-items-center" action="/admin/filter/collection" method="post">
+    <div class="row row-gap-4">
+      <div class="col-md-6 col-xl-4">
+        <input type="radio" name="options" id="collection1" value="collection_name" hidden>
+        <label class="mx-auto" for="collection1">
+          Name
+        </label>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <input type="radio" name="options" id="collection2" value="collection_id" hidden>
+      <label class="mx-auto" for="collection2">
+        ID
+      </label>
+      </div>
+      <div class="col-md-6 col-xl-4">
+        <input type="radio" name="options" id="collection3" value="collector" hidden>
+        <label class="mx-auto" for="collection3">
+          Collector
+        </label>
+      </div>
+      <input type="search" name="filter" autofocus>
+    </div>
+
+    <div class="row row-gap-4 text-center">
+      <div class="col-md-4">
+        <button class="fs-6">Accept</button>
+
+      </div>
+      <div class="col-md-4">
+        <button class="fs-6" type="reset">Clean</button>
+        
+      </div>
+      <div class="col-md-4">
+        <button class="fs-6" type="button" onclick="window.location.href='/admin'">Reset</button>
+
+      </div>
+    </div>
+  </form>
+
+</section>

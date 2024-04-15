@@ -27,7 +27,11 @@ form img {
   width: 60px;
   border-radius: 0;
 }
+form p {
+  margin-bottom: 0;
+}
 
-input[type=radio] {
-  border: 1px solid #000;
+input[type=radio]:checked + label {
+  background-color: var(--main-color);
+  color: white;
 }/*# sourceMappingURL=forms.css.map */

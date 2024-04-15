@@ -17,61 +17,115 @@
 
     
 
-    <section class="container-xxl">
-      <h1 class="text-center py-5">Add Item</h1>
-
-      <div class="row my-auto">
-
-        <div class="col-xl-6 text-center text-xl-end">
-          <img src="/images/assets/vaseblue.png" alt="">
+    <main>
+      <section class="container-xxl">
+        <h1 class="text-center py-5">Add Item</h1>
+        <div class="row my-auto">
+          <div class="col-xl-6 text-center text-xl-end">
+            <img src="/images/assets/vaseblue.png" alt="">
+          </div>
+          <div class="col-xl-6">
+            <form class="d-flex flex-column gap-4 mx-auto ms-xl-0" action="/collectors/<%= id %>/addItem" method="post" enctype="multipart/form-data">
+              <label class="d-flex flex-column" >
+                Name
+                <input type="text" name="item_name" autofocus>
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'item_name') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
+              </label>
+              <label class="d-flex flex-column ">
+                Purchase Year
+                <input type="text" name="item_purchaseyear">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'item_purchaseyear') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
+              </label>
+              <label class="d-flex flex-column ">
+                Description
+                <input type="text" name="item_description">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'item_description') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
+              </label>
+              <label class="d-flex flex-column ">
+                Collection
+                <select name="collection_id" id="">
+                  <option disabled selected>Collections</option>
+                  <% collections.forEach(collection => { %>
+                    <option value="<%= collection.collection_id %>"><%= collection.collection_name %></option>
+                  <% }) %>
+                </select>
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'collection_id') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
+              </label>
+              <button style="max-width: 200px;" type="button" class="fs-6" data-bs-toggle="modal" data-bs-target="#addCollection">
+                Add collection
+              </button>
+              <label class="d-flex flex-column ">
+                Category
+                <select name="category_id" id="">
+                  <option disabled selected>Categories</option>
+                  <% categories.forEach(category => { %>
+                    <option value="<%= category.category_id %>"><%= category.category_name %></option>
+                  <% }) %>
+                </select>
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'category_id') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
+              </label>
+              <label>
+                <img src="/images/assets/upload.png" alt="upload icon">
+                <input type="file" name="img" hidden>
+              </label>
+              <div class="d-flex gap-3">
+                <button>Aceptar</button>
+                <button type="button" onclick="window.location.href='/collectors/<%= id %>/logged'">Cancelar</button>
+              </div>
+            </form>
+          </div>
         </div>
+      </section>
 
-        <div class="col-xl-6">
-          <form class="d-flex flex-column gap-4 mx-auto ms-xl-0" action="/collectors/<%= id %>/addItem" method="post" enctype="multipart/form-data">
-            <label class="d-flex flex-column" >
-              Name
-              <input type="text" name="item_name" autofocus>
-            </label>
-            <label class="d-flex flex-column ">
-              Purchase Year
-              <input type="text" name="item_purchaseyear">
-            </label>
-            <label class="d-flex flex-column ">
-              Description
-              <input type="text" name="item_description">
-            </label>
-            <label class="d-flex flex-column ">
-              Collection ID
-              <select name="collection_id" id="">
-                <option disabled selected>Collections</option>
-                <% collections.forEach(collection => { %>
-                  <option value="<%= collection.collection_id %>"><%= collection.collection_name %></option>
-                <% }) %>
-              </select>
-            </label>
-            <label class="d-flex flex-column ">
-              Category ID
-              <select name="category_id" id="">
-                <option disabled selected>Categories</option>
-                <% categories.forEach(category => { %>
-                  <option value="<%= category.category_id %>"><%= category.category_name %></option>
-                <% }) %>
-              </select>
-            </label>
-            <label>
-              <img src="/images/assets/upload.png" alt="upload icon">
-              <input type="file" name="img" hidden>
-            </label>
-            <div class="d-flex gap-3">
-              <button>Aceptar</button>
-              <button type="button" onclick="window.location.href='/'">Cancelar</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="addCollection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Add Collection</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </form>
+            <div class="modal-body">
+              <form class="mx-auto" action="/collectors/<%= id %>/addCollection" method="post">
+                <label >
+                  Name
+                  <input type="text" name="collection_name">
+                </label>
+                <label >
+                  Description
+                  <input type="text" name="collection_description">
+                </label>
+                <div class="d-flex gap-4">
+                  <button class="fs-6">Submit</button>
+                  <button type="button" class="fs-6"  data-bs-dismiss="modal">Close</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-
       </div>
-
-    </section>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

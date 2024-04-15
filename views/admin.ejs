@@ -39,6 +39,7 @@
             <section class="head w-100">
               <h2 class="text-center">Collectors</h2>
             </section>
+            <%- include('./includes/filterCollector.ejs') %>
             <div style=overflow-x:auto;>
               <table class="mx-auto">
                 <thead>
@@ -78,6 +79,7 @@
             <section class="head">
               <h2 class="text-center">Categories</h2>
             </section>
+            <%- include('./includes/filterCategory.ejs') %>
             <div style=overflow-x:auto; class="text-center">
               <button type="button" class="fs-6" data-bs-toggle="modal" data-bs-target="#addCategory">
                 Add Category
@@ -111,7 +113,7 @@
             <section class="head w-100">
               <h2 class="text-center">Collections</h2>
             </section>
-
+            <%- include('./includes/filterCollection.ejs') %>
             <div style=overflow-x:auto;>
               <table class="mx-auto">
                 <thead>
@@ -147,7 +149,7 @@
             <section class="head w-100">
               <h2 class="text-center">Items</h2>
             </section>
-
+            <%- include('./includes/filterItem.ejs') %>
             <div style="overflow-x:auto;">
               <table class="mx-auto">
                 <thead>
@@ -186,28 +188,28 @@
       </section>
 
       <!-- Modal -->
-<div class="modal fade" id="addCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Category</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form class="mx-auto" action="/admin/addCategory" method="post">
-          <label >
-            Name
-            <input type="text" name="name">
-          </label>
-          <div class="d-flex gap-4">
-            <button class="fs-6">Aceptar</button>
-            <button type="button" class="fs-6"  data-bs-dismiss="modal">Close</button>
+      <div class="modal fade" id="addCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Add Category</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form class="mx-auto" action="/admin/addCategory" method="post">
+                <label >
+                  Name
+                  <input type="text" name="name">
+                </label>
+                <div class="d-flex gap-4">
+                  <button class="fs-6">Aceptar</button>
+                  <button type="button" class="fs-6"  data-bs-dismiss="modal">Close</button>
+                </div>
+              </form>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
     </main>
 

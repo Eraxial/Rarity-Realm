@@ -27,14 +27,29 @@
               <label class="d-flex flex-column">
                 Name
                 <input type="text" name="item_name" value="<%= result.item_name %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'item_name') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>    
+                <% }) %>
               </label>
               <label class="d-flex flex-column">
                 Purchase Year
                 <input type="text" name="item_purchaseyear" value="<%= result.item_purchaseyear %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'item_purchaseyear') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>    
+                <% }) %>
               </label>
               <label class="d-flex flex-column">
                 Description
                 <input type="text" name="item_description" value="<%= result.item_description %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'item_description') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>    
+                <% }) %>
               </label>
               <label class="d-flex flex-column ">
                 Collection ID
@@ -46,6 +61,11 @@
                     <% } %>
                   <% }) %>
                 </select>
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'collection_id') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>    
+                <% }) %>
               </label>
               <label class="d-flex flex-column ">
                 Category ID
@@ -57,6 +77,11 @@
                     <% } %>
                   <% }) %>
                 </select>
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'category_id') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>    
+                <% }) %>
               </label>
               <div class="d-flex gap-3">
                 <button>Aceptar</button>

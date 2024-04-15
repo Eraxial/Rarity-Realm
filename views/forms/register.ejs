@@ -20,15 +20,30 @@
       <form class="mx-auto" action="/collectors/register" method="post" enctype="multipart/form-data">
         <label >
           Nick
-          <input type="text" name="nick">
+          <input type="text" name="nick" value="<%= values.nick %>">
+          <% validations.forEach ((e)=>{ %>
+            <% if(e.path == 'nick'){ %>
+              <p style="color: red"><%= e.msg %></p>
+            <% } %>
+          <% }) %>
         </label>
         <label >
           Email
-          <input type="text" name="email">
+          <input type="text" name="email" value="<%= values.email %>">
+          <% validations.forEach ((e)=>{ %>
+            <% if(e.path == 'email'){ %>
+              <p style="color: red"><%= e.msg %></p>
+            <% } %>
+          <% }) %>
         </label>
         <label >
           Password
-          <input type="text" name="password">
+          <input type="text" name="password" value="<%= values.password %>">
+          <% validations.forEach ((e)=>{ %>
+            <% if(e.path == 'password'){ %>
+              <p style="color: red"><%= e.msg %></p>
+            <% } %>
+          <% }) %>
         </label>
         <label>
           <img src="/images/assets/upload.png" alt="upload icon">

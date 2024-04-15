@@ -27,22 +27,47 @@
               <label class="d-flex flex-column">
                 Nick
                 <input type="text" name="nick" value="<%= result.nick %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'nick') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
               </label>
               <label class="d-flex flex-column">
                 email
                 <input type="text" name="email" value="<%= result.email %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'email') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
               </label>
               <label class="d-flex flex-column">
                 Name
                 <input type="text" name="name" value="<%= result.name %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'name') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
               </label>
               <label class="d-flex flex-column">
                 Last Name
                 <input type="text" name="last_name" value="<%= result.last_name %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'last_name') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
               </label>
               <label class="d-flex flex-column">
                 Phone
                 <input type="text" name="phone" value="<%= result.phone %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'phone') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
               </label>
               <div class="d-flex gap-3">
                 <button>Aceptar</button>

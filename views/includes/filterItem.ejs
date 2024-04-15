@@ -1,0 +1,54 @@
+<section class="container-xxl d-flex flex-column align-items-center">
+  <p class="fs-4 fw-bold">Filter by:</p>
+  <form class="w-100 pb-5 d-flex flex-column align-items-center" action="/admin/filter/item" method="post">
+    <div class="row row-gap-4">
+      <div class="col-md-6 col-xl-3">
+        <input type="radio" name="options" id="item1" value="item_id" hidden>
+        <label class="mx-auto" for="item1">
+          ID
+        </label>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <input type="radio" name="options" id="item2" value="item_name" hidden>
+        <label class="mx-auto" for="item2">
+          Name
+        </label>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <input type="radio" name="options" id="item3" value="collection_name" hidden>
+      <label class="mx-auto" for="item3">
+        Collection
+      </label>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <input type="radio" name="options" id="item4" value="category_name" hidden>
+        <label class="mx-auto" for="item4">
+          Category
+        </label>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <input type="radio" name="options" id="item5" value="nick" hidden>
+        <label class="mx-auto" for="item5">
+          Collector
+        </label>
+      </div>
+      <input type="search" name="filter" autofocus>
+    </div>
+
+    <div class="row row-gap-4 text-center">
+      <div class="col-md-4">
+        <button class="fs-6">Accept</button>
+
+      </div>
+      <div class="col-md-4">
+        <button class="fs-6" type="reset">Clean</button>
+        
+      </div>
+      <div class="col-md-4">
+        <button class="fs-6" type="button" onclick="window.location.href='/admin'">Reset</button>
+
+      </div>
+    </div>
+  </form>
+
+</section>

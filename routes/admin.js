@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/adminController')
+const collectorValidator = require('../middleware/collectorValidator');
 
-router.get('/', controller.showAdminPage)
+router.get('/', controller.showAdminPage);
 
 router.post('/addCategory', controller.addCategory);
 
@@ -14,8 +15,16 @@ router.get('/eraseCollection/:id', controller.eraseCollection);
 
 router.get('/eraseItem/:id', controller.eraseItem);
 
-router.get('/editCollector/:id', controller.showEditCollectorForm)
+router.get('/editCollector/:id', controller.showEditCollectorForm);
 
-router.post('/editCollector/:id', controller.editCollector)
+router.post('/editCollector/:id', collectorValidator, controller.editCollector);
+
+router.post('/filter/collector', controller.filterCollector);
+
+router.post('/filter/item', controller.filterItem);
+
+router.post('/filter/collection', controller.filterCollection);
+
+router.post('/filter/category', controller.filterCategory);
 
 module.exports = router;
