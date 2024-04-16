@@ -16,21 +16,16 @@
 }
 
 th {
-  padding-inline: 40px;
-  padding-block: 25px;
+  padding-inline: 10px;
 }
 
 td {
-  padding-block: 5px;
-  padding-inline: 40px;
-}
-
-img {
-  width: 50px;
+  padding-inline: 10px;
 }
 
 .icon {
   width: 25px;
+  aspect-ratio: 1;
   filter: grayscale(1);
   transition: filter 0.1s, scale 0.1s;
   cursor: pointer;
@@ -46,7 +41,7 @@ form {
   width: 100%;
 }
 
-label {
+.filter label {
   border-radius: 50px;
   border: 3px solid var(--main-color);
   padding-inline: 16px;
@@ -55,18 +50,18 @@ label {
   transition: background-color 0.2s;
   text-wrap: nowrap;
   text-align: center;
-  max-width: 125px;
+  width: 125px;
   cursor: pointer;
 }
-label:hover {
+.filter label:hover {
   background-color: var(--main-color);
   color: white;
 }
-label:active {
+.filter label:active {
   opacity: 0.5;
 }
 
-input[type=radio]:checked + label {
+.filter input[type=radio]:checked + label {
   background-color: var(--main-color);
   color: white;
 }
@@ -77,4 +72,12 @@ input {
 }
 input:focus {
   outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--main-color);
+}
+a:hover {
+  color: var(--main-emphasys-color);
 }/*# sourceMappingURL=admin.css.map */

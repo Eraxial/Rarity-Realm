@@ -30,7 +30,9 @@ router.get('/:id/editItem/:itemId', controller.showFormEditItem);
 
 router.post('/:id/editItem/:itemId', itemValidator, controller.editItem);
 
+router.get('/:id/editCollector', controller.showEditCollectorForm);
 
+router.post('/:id/editCollector', controller.editCollector);
 
 
 module.exports = router;

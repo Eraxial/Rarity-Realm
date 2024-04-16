@@ -6,6 +6,7 @@
     <title><%= title %></title>
     <link rel="shortcut icon" href="/images/assets/icon2.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <%- include('../includes/links.ejs') %>
     <link rel="stylesheet" href="/stylesheets/general.css">
     <link rel="stylesheet" href="/stylesheets/forms.css">
   </head>
@@ -15,7 +16,7 @@
       <%- include('../includes/navbar.ejs') %>
     </header>
 
-    <main>
+    <main class="d-flex flex-column justify-content-center" style="height: calc(100vh - 251.12px - 3rem);">
       <div class="container-xxl">
         <h1 class="text-center">Edit collector</h1>
         <div class="row">
@@ -23,7 +24,7 @@
             <img src="/images/collectors/<%= result.collector_img %>" alt="">
           </div>
           <div class="col-xl-6">
-            <form class="mx-auto ms-xl-0 d-flex flex-column gap-4" action="/admin/editCollector/<%= result.collector_id %>" method="post">
+            <form class="mx-auto ms-xl-0 d-flex flex-column gap-4" action="/collectors/<%= result.collector_id %>/editCollector" method="post">
               <label class="d-flex flex-column">
                 Nick
                 <input type="text" name="nick" value="<%= result.nick %>">
@@ -71,7 +72,7 @@
               </label>
               <div class="d-flex gap-3">
                 <button>Aceptar</button>
-                <button type="button" onclick="window.location.href='/admin/'">Cancelar</button>
+                <button type="button" onclick="window.location.href='/collector/<%= result.collector_id %>/logged'">Cancelar</button>
               </div>
             </form>
           </div>
@@ -79,7 +80,7 @@
       </div>
     </main>
     
-    
+    <%- include('../includes/footer.ejs') %>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>

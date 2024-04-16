@@ -80,6 +80,7 @@ main button {
 }
 .list img {
   transition: scale 0.2s, opacity 0.2s;
+  aspect-ratio: 1;
 }
 .list img:hover {
   opacity: 0.8;

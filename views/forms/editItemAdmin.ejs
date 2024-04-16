@@ -24,7 +24,7 @@
             <img src="/images/items/<%= result.item_img %>" alt="">
           </div>
           <div class="col-xl-6">
-            <form class="mx-auto ms-xl-0 d-flex flex-column gap-4" action="/collectors/<%= id %>/editItem/<%= result.item_id %>" method="post">
+            <form class="mx-auto ms-xl-0 d-flex flex-column gap-4" action="/admin/editItem/<%= result.item_id %>" method="post">
               <label class="d-flex flex-column">
                 Name
                 <input type="text" name="item_name" value="<%= result.item_name %>">

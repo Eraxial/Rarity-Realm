@@ -103,6 +103,7 @@ main button {
   
   img {
     transition: scale 0.2s, opacity 0.2s;
+    aspect-ratio: 1;
 
     &:hover {
       opacity: 0.8;

@@ -71,6 +71,12 @@
   }
 }
 main{
+
+  img {
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
   button {
     border-radius: 50px;
     font-size: 2rem;
@@ -78,7 +84,7 @@ main{
     border: 3px solid var(--main-color);
     background-color: transparent;
     color: var(--main-color);
-    box-shadow: 10px 10px var(--main-color);
+    box-shadow: 5px 5px var(--main-color);
     transition: 
       box-shadow 0.1s, 
       translate 0.1s,
@@ -88,7 +94,7 @@ main{
   
     &:active {
       box-shadow: none;
-      translate: 10px 10px;
+      translate: 5px 5px;
     }
   
     &:hover {

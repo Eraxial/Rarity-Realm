@@ -6,9 +6,10 @@
     <title>Bootstrap demo</title>
     <link rel="shortcut icon" href="/images/assets/icon2.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/stylesheets/admin.css">
+    <%- include('./includes/links.ejs') %>
     <link rel="stylesheet" href="/stylesheets/general.css">
     <link rel="stylesheet" href="/stylesheets/forms.css">
+    <link rel="stylesheet" href="/stylesheets/admin.css">
   </head>
   <body>
     <header>
@@ -40,38 +41,70 @@
               <h2 class="text-center">Collectors</h2>
             </section>
             <%- include('./includes/filterCollector.ejs') %>
-            <div style=overflow-x:auto;>
-              <table class="mx-auto">
-                <thead>
-                  <tr>
-                    <th>Photo</th>
-                    <th>ID</th>
-                    <th>Nick</th>
-                    <th>Name</th>
-                    <th>Last Name</th>
-                    <th>Phone</th>
-                    <th>Interest</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
+              <section class="container-xxl">
+                <div class="row">
                   <% resultCollector.forEach(coll => { %>
-                    <tr>
-                      <td><img class="rounded-circle" src="/images/collectors/<%= coll.collector_img %>" alt=""></td>
-                      <td><%= coll.collector_id %></td>
-                      <td><%= coll.nick %></td>
-                      <td><%= coll.name %></td>
-                      <td><%= coll.last_name %></td>
-                      <td><%= coll.phone %></td>
-                      <td><%= coll.interest %></td>
-                      <td class="text-center"><img type="button" onclick="window.location.href='/admin/eraseCollector/<%= coll.collector_id %>'" class="icon" src="/images/assets/delete.png" alt=""></td>
-                      <td class="text-center"><img type="button" onclick="window.location.href='/admin/editCollector/<%= coll.collector_id %>'" class="icon" src="/images/assets/edit.png" alt=""></td>
-                    </tr>
+                    <div class="col-md-6 col-xl-4">
+                      <div class="card mx-auto mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                          <div class="col-md-4 my-auto">
+                          <a href="/collectors/<%= coll.collector_id %>">
+                            <img src="/images/collectors/<%= coll.collector_img %>" class=" object-fit-cover rounded img-fluid"  alt="...">
+                          </a>
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <a href="/collectors/<%= coll.collector_id %>">
+                                <h5 class="card-title"><%= coll.nick %></h5>
+                              </a>
+                              <table class="pb-2">
+                                <tr>
+                                  <th>
+                                    ID
+                                  </th>
+                                  <td><%= coll.collector_id %></td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    Name
+                                  </th>
+                                  <td><%= coll.name %></td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    Last name
+                                  </th>
+                                  <td><%= coll.last_name %></td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    Phone
+                                  </th>
+                                  <td><%= coll.phone %></td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    Interest
+                                  </th>
+                                  <td><%= coll.interest %></td>
+                                </tr>
+                              </table>
+                              <div class="text-end">
+                                <img type="button" onclick="window.location.href='/admin/eraseCollector/<%= coll.collector_id %>'" class="icon me-3" src="/images/assets/delete.png" alt="">
+                                <img type="button" onclick="window.location.href='/admin/editCollector/<%= coll.collector_id %>'" class="icon " src="/images/assets/edit.png" alt="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                    </div>
                   <% }) %>
-                </tbody>
-              </table>
-            </div>
+                </div>
+              
+                
+              
+              </section>
           </div>
 
           <div class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
@@ -84,26 +117,28 @@
               <button type="button" class="fs-6" data-bs-toggle="modal" data-bs-target="#addCategory">
                 Add Category
               </button>
-              <table class="mx-auto">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
+             
+              
+              <section class="container-xxl py-5">
+                <div class="row row-gap-3">
                   <% resultCategories.forEach(cat => { %>
-                    <tr>
-                      <td><%= cat.category_id %></td>
-                      <td><%= cat.category_name %></td>
-                      <td class="text-center"><img type="button" onclick="window.location.href='/admin/eraseCategory/<%= cat.category_id %>'" class="icon" src="/images/assets/delete.png" alt=""></td>
-                      <td class="text-center"><img type="button" onclick="window.location.href='/admin/editCategory/<%= cat.category_id %>'" class="icon" src="/images/assets/edit.png" alt=""></td>
-                    </tr>
+                  <div class="col-md-6 col-xl-3 ">
+                    <div class="card mx-auto text-start" style="width: 18rem;">
+                      <div class="card-body">
+                          <a href="/items/category/<%= cat.category_id %>">
+                          <h5 class="card-title"><%= cat.category_name %> </h5>
+                          </a>
+                      
+                          <h6 class="card-subtitle mb-2 text-body-secondary">ID: <%= cat.category_id %></h6>
+                        </div>
+                        <div class="text-end p-3">
+                          <img type="button" onclick="window.location.href='/admin/eraseCategory/<%= cat.category_id %>'" class="icon mx-3" src="/images/assets/delete.png" alt="">
+                        </div>
+                      </div>
+                  </div>
                   <% }) %>
-                </tbody>
-              </table>
+                </div>
+              </section>
               
             </div>
           </div>
@@ -114,35 +149,30 @@
               <h2 class="text-center">Collections</h2>
             </section>
             <%- include('./includes/filterCollection.ejs') %>
-            <div style=overflow-x:auto;>
-              <table class="mx-auto">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th >Description</th>
-                    <th>Collector ID</th>
-                    <th>Collector Nick</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% resultCollection.forEach(collection => { %>
-                    <tr>
-                      <td><%= collection.collection_id %></td>
-                      <td><%= collection.collection_name %></td>
-                      <td style="min-width: 500px;"><%= collection.collection_description %></td>
-                      <td><%= collection.collector_id %></td>
-                      <td><%= collection.nick %></td>
-                      <td class="text-center"><img type="button" onclick="window.location.href='/admin/eraseCollection/<%= collection.collection_id %>'" class="icon" src="/images/assets/delete.png" alt=""></td>
-                      <td class="text-center"><img type="button" onclick="window.location.href='/admin/editCollection/<%= collection.collection_id %>'" class="icon" src="/images/assets/edit.png" alt=""></td>
-                    </tr>
-                  <% }) %>
-                </tbody>
-              </table>
-            </div>
-
+            <section class="container-xxl py-5">
+              <div class="row row-gap-3">
+                <% resultCollection.forEach(collection => { %>
+                <div class="col-md-6 col-xl-3 ">
+                  <div class="card mx-auto text-start" style="width: 18rem;">
+                    <div class="card-body">
+                      <a href="/collections/<%= collection.collection_id %>">
+                        <h5 class="card-title"><%= collection.collection_name %> 
+                        </h5>
+                      </a>
+                    
+                        <h6 class="card-subtitle mb-2 text-body-secondary">ID: <%= collection.collection_id %></h6>
+                        <p class="card-text">Description: <%= collection.collection_description %></p>
+                        <p class="card-text">Collector ID: <%= collection.collector_id %></p>
+                        <p class="card-text">Collector: <%= collection.nick %></p>
+                        <div class="text-end">
+                          <img type="button" onclick="window.location.href='/admin/eraseCollection/<%= collection.collection_id %>'" class="icon mx-3" src="/images/assets/delete.png" alt="">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <% }) %>
+              </div>
+            </section>
           </div>
           <div class="tab-pane fade" id="items" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">
 
@@ -150,7 +180,7 @@
               <h2 class="text-center">Items</h2>
             </section>
             <%- include('./includes/filterItem.ejs') %>
-            <div style="overflow-x:auto;">
+            <!-- <div style="overflow-x:auto;">
               <table class="mx-auto">
                 <thead>
                   <tr>
@@ -181,13 +211,47 @@
                   <% }) %>
                 </tbody>
               </table>
-            </div>
+            </div> -->
+            <section class="container-xxl">
+              <div class="row">
+                <% resultItem.forEach(item => { %>
+                <div class="col-md-6 col-xl-4">
+                  <div class="card mx-auto mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                      <div class="col-md-4 my-auto">
+                          <a href="/items/<%= item.item_id %>">
+                          <img src="/images/items/<%= item.item_img %>" class="img-fluid rounded" alt="...">
+                        </a>
+                        </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <a href="/items/<%= item.item_id %>">
+                            <h5 class="card-title"><%= item.item_name %></h5>
+                          </a>
+                          <p class="card-text">Purchase year: <%= item.item_purchaseyear %></p>
+                          <p class="card-text">Description: <%= item.item_description %></p>
+                          <p class="card-text">Category: <%= item.category_name %></p>
+                          <p class="card-text">Collector: <%= item.collector_name %></p>
+                          <div class="text-end">
+                            <img type="button" onclick="window.location.href='/admin/eraseItem/<%= item.item_id %>'" class="mx-3 icon" src="/images/assets/delete.png" alt="">
+                            <img type="button" onclick="window.location.href='/collectors/<%= item.collector_id%>/editItem/<%= item.item_id %>'" class="icon" src="/images/assets/edit.png" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+            </section>
 
           </div>
         </div>
       </section>
 
       <!-- Modal -->
+
+      <!-- Add Category -->
       <div class="modal fade" id="addCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -213,7 +277,7 @@
 
     </main>
 
-    
+    <%- include('./includes/footer.ejs') %>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>

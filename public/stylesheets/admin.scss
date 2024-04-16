@@ -19,21 +19,18 @@
 }
 
 th {
-  padding-inline: 40px;
-  padding-block: 25px;
+  padding-inline: 10px;
+  // padding-block: 25px;
 }
 
 td {
-  padding-block: 5px;
-  padding-inline: 40px;
-}
-
-img {
-  width: 50px;
+  // padding-block: 5px;
+  padding-inline: 10px;
 }
 
 .icon {
   width: 25px;
+  aspect-ratio: 1;
   filter: grayscale(1);
   transition: filter 0.1s, scale 0.1s;
   cursor: pointer;
@@ -51,7 +48,7 @@ form {
   width: 100%;
 }
 
-label {
+.filter label {
   border-radius: 50px;
   border: 3px solid var(--main-color);
   padding-inline: 16px;
@@ -74,7 +71,7 @@ label {
   }
 }
 
-input[type=radio]:checked + label{
+.filter input[type=radio]:checked + label{
   background-color: var(--main-color);
   color: white;
 }
@@ -85,5 +82,14 @@ input {
 
   &:focus {
     outline: none;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: var(--main-color);
+  
+  &:hover {
+    color: var(--main-emphasys-color);
   }
 }

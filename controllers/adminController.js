@@ -30,7 +30,7 @@ class AdminController {
             
             console.log(resultCollector)
 
-            res.render('admin', {title: 'Admin', resultCollection, resultItem, resultCollector, resultCategories});
+            res.render('admin', {title: 'Admin', resultCollection, resultItem, resultCollector, resultCategories, active: 1, print: "active"});
 
           })
         })
@@ -107,7 +107,7 @@ class AdminController {
     connection.query(sql, [id], (err, result) => {
       if (err) throw err;
 
-      res.render('./forms/editCollector', {title: 'Edit Collector', result: result[0], validations: [], values: {}});
+      res.render('./forms/editCollectorAdmin', {title: 'Edit Collector', result: result[0], validations: [], values: {}});
     })
   }
 
@@ -144,7 +144,7 @@ class AdminController {
 
     const {options, filter} = req.body;
 
-    console.log(req.body);
+    console.log("-----------------",req.body);
 
     let collections = 'SELECT collection.*, collector.nick FROM collection left join collector on collector.collector_id = collection.collector_id where collection.collection_isdeleted = 0;';
 
@@ -155,22 +155,25 @@ class AdminController {
     LEFT JOIN collector ON item.collector_id = collector.collector_id
     WHERE item.item_isdeleted = 0 ORDER BY item.item_id;`
 
-    let collectors = `SELECT * FROM collector WHERE is_deleted = 0 AND is_admin = 0 AND ${options} LIKE ("%${filter}%")`;
+    let collectors = `SELECT * FROM collector WHERE is_deleted = 0 AND is_admin = 0 AND ?? LIKE ?`;
     
     let categories = 'SELECT * FROM category ORDER BY category_id';
+
+    let sqlParam = [options,`%${filter}%`];
 
     connection.query(collections, (err, resultCollection) => {
       if (err) throw err;
       connection.query(items, (err2, resultItem) => {
         if (err2) throw err2;
-        connection.query(collectors, (err3, resultCollector) => {
+        connection.query(collectors, sqlParam, (err3, resultCollector) => {
+          console.log("................",resultCollector)
           if (err3) throw err3;
           connection.query(categories, (err4, resultCategories) => {
             if (err4) throw err4;
             
             console.log(resultCollector)
 
-            res.render('admin', {title: 'Admin', resultCollection, resultItem, resultCollector, resultCategories});
+            res.render('admin', {title: 'Admin', resultCollection, resultItem, resultCollector, resultCategories, active: 1, print: "active"});
 
           })
         })
@@ -179,6 +182,33 @@ class AdminController {
 
     
   }
+
+  showEditItem = (req, res) => {
+    const {id, itemId} = req.params;
+    
+    let sql = `SELECT item.*, collection.collection_id, collection.collection_name, category.category_id, category.category_name 
+    FROM item, collection, category
+    WHERE item.collection_id = collection.collection_id
+    AND item.category_id = category.category_id
+    AND item.item_id = ?
+    AND item.item_isdeleted = 0;`
+
+    let cat = 'SELECT category_id, category_name FROM category'
+    let coll = 'SELECT collection_id, collection_name FROM collection WHERE collector_id = ?'
+
+    connection.query(sql, [itemId], (err, result) => {
+      if (err) throw err;
+      connection.query(cat, (catErr, categories) => {
+        if(catErr) throw catErr
+        connection.query(coll,[id], (collErr, collections) => {
+          if (collErr) throw collErr;
+          res.render('./forms/editItem', {title: 'Edit Item', result: result[0], categories, collections, id, validations: [], values: {}});
+        })
+      });
+    });
+  }
+
+  editItem = (req, res) => {}
 
   filterItem = (req, res) => {
 
@@ -208,7 +238,7 @@ class AdminController {
             
             console.log(resultCollector)
 
-            res.render('admin', {title: 'Admin', resultCollection, resultItem, resultCollector, resultCategories});
+            res.render('admin', {title: 'Admin', resultCollection, resultItem, resultCollector, resultCategories,active: 4, print: "show"});
 
           })
         })

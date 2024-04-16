@@ -18,75 +18,61 @@
 
     <main class="d-flex flex-column justify-content-center" style="height: calc(100vh - 251.12px - 3rem);">
       <div class="container-xxl">
-        <h1 class="text-center">Edit Item</h1>
+        <h1 class="text-center">Edit collector</h1>
         <div class="row">
           <div class="col-xl-6 photo text-center text-xl-end">
-            <img src="/images/items/<%= result.item_img %>" alt="">
+            <img src="/images/collectors/<%= result.collector_img %>" alt="">
           </div>
           <div class="col-xl-6">
-            <form class="mx-auto ms-xl-0 d-flex flex-column gap-4" action="/collectors/<%= id %>/editItem/<%= result.item_id %>" method="post">
+            <form class="mx-auto ms-xl-0 d-flex flex-column gap-4" action="/admin/editCollector/<%= result.collector_id %>" method="post">
+              <label class="d-flex flex-column">
+                Nick
+                <input type="text" name="nick" value="<%= result.nick %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'nick') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
+              </label>
+              <label class="d-flex flex-column">
+                email
+                <input type="text" name="email" value="<%= result.email %>">
+                <% validations.forEach(e => { %>
+                  <% if(e.path == 'email') { %>
+                    <p style="color: red;"><%= e.msg %></p>
+                  <% } %>
+                <% }) %>
+              </label>
               <label class="d-flex flex-column">
                 Name
-                <input type="text" name="item_name" value="<%= result.item_name %>">
+                <input type="text" name="name" value="<%= result.name %>">
                 <% validations.forEach(e => { %>
-                  <% if(e.path == 'item_name') { %>
+                  <% if(e.path == 'name') { %>
                     <p style="color: red;"><%= e.msg %></p>
-                  <% } %>    
+                  <% } %>
                 <% }) %>
               </label>
               <label class="d-flex flex-column">
-                Purchase Year
-                <input type="text" name="item_purchaseyear" value="<%= result.item_purchaseyear %>">
+                Last Name
+                <input type="text" name="last_name" value="<%= result.last_name %>">
                 <% validations.forEach(e => { %>
-                  <% if(e.path == 'item_purchaseyear') { %>
+                  <% if(e.path == 'last_name') { %>
                     <p style="color: red;"><%= e.msg %></p>
-                  <% } %>    
+                  <% } %>
                 <% }) %>
               </label>
               <label class="d-flex flex-column">
-                Description
-                <input type="text" name="item_description" value="<%= result.item_description %>">
+                Phone
+                <input type="text" name="phone" value="<%= result.phone %>">
                 <% validations.forEach(e => { %>
-                  <% if(e.path == 'item_description') { %>
+                  <% if(e.path == 'phone') { %>
                     <p style="color: red;"><%= e.msg %></p>
-                  <% } %>    
-                <% }) %>
-              </label>
-              <label class="d-flex flex-column ">
-                Collection ID
-                <select name="collection_id" id="">
-                  <option selected value="<%= result.collection_id %>"><%= result.collection_name %></option>
-                  <% collections.forEach(collection => { %>
-                    <% if (collection.collection_id != result.collection_id){ %>
-                      <option value="<%= collection.collection_id %>"><%= collection.collection_name %></option>
-                    <% } %>
-                  <% }) %>
-                </select>
-                <% validations.forEach(e => { %>
-                  <% if(e.path == 'collection_id') { %>
-                    <p style="color: red;"><%= e.msg %></p>
-                  <% } %>    
-                <% }) %>
-              </label>
-              <label class="d-flex flex-column ">
-                Category ID
-                <select name="category_id" id="">
-                  <option selected value="<%= result.category_id %>"><%= result.category_name %></option>
-                  <% categories.forEach(category => { %>
-                    <% if (category.category_id != result.category_id){ %>
-                      <option value="<%= category.category_id %>"><%= category.category_name %></option>
-                    <% } %>
-                  <% }) %>
-                </select>
-                <% validations.forEach(e => { %>
-                  <% if(e.path == 'category_id') { %>
-                    <p style="color: red;"><%= e.msg %></p>
-                  <% } %>    
+                  <% } %>
                 <% }) %>
               </label>
               <div class="d-flex gap-3">
                 <button>Aceptar</button>
-                <button type="button" onclick="window.location.href='/collectors/<%= id %>'">Cancelar</button>
+                <button type="button" onclick="window.location.href='/admin/'">Cancelar</button>
               </div>
             </form>
           </div>

@@ -1,11 +1,12 @@
 const { validationResult } = require('express-validator');
 const connection = require('../config/database');
 const bcrypt = require('bcrypt');
+const sendMail = require('../services/emailService');
 
 class CollectorController {
 
   showRegisterForm = (req, res) => {
-    res.render('./forms/register', {title: 'Register', validations:[], values:{}})
+    res.render('./forms/register', {title: 'Register', message:"", validations:[], values:{}})
   }
 
   showLoginForm = (req, res) => {
@@ -34,13 +35,21 @@ class CollectorController {
         let sql = 'INSERT INTO collector (nick, email, password, collector_img) VALUES (?, ?, ?, ?);'
   
         connection.query(sql, [nick, email, hash, img], error => {
-          if (error) throw error;
-          let sql2 = 'SELECT max(collector_id)max FROM collector';
-          connection.query(sql2, (error2, result) => {
-            if (error2) throw error2;
-            const id = result[0].max;
-            res.redirect(`/collectors/${result[0].max}/logged`);
-          })
+          if (error) {
+            if (error.errno = 1062){
+              res.render('./forms/register', {title: 'Register', message:"Email ya existe", validations:[], values:{}})
+            } else {
+              res.render('./forms/register', {title: 'Register', message:"Hay un error en la base de datos", validations:[], values:{}})
+            }
+          }else{
+            let sql2 = 'SELECT max(collector_id)max FROM collector';
+            sendMail(nick, email)
+            connection.query(sql2, (error2, result) => {
+              if (error2) throw error2;
+              const id = result[0].max;
+              res.redirect(`/collectors/${id}/logged`);
+            })
+          }
         })
       })
     }
@@ -88,7 +97,7 @@ class CollectorController {
   showCollector = (req, res) => {
     const {id} = req.params;
     
-    let sql = `SELECT collector.*, item.*, collection.collection_name, category.category_name 
+    let sql = `SELECT collector.collector_id as collector_collectorid, collector.*, item.*, collection.collection_name, category.category_name 
     from collector 
       LEFT JOIN item on collector.collector_id = item.collector_id and item.item_isdeleted = 0
           LEFT JOIN collection on item.collection_id = collection.collection_id 
@@ -97,6 +106,8 @@ class CollectorController {
 
     connection.query(sql, (err, result) => {
       if (err) throw err;
+
+      console.log(result);
 
       let finalResult = {};
       let items = [];
@@ -119,7 +130,7 @@ class CollectorController {
         }
       }
       finalResult = {
-        collector_id: id,
+        collector_id: result[0].collector_collectorid,
         nick: result[0].nick,
         name: result[0].name,
         last_name: result[0].last_name,
@@ -196,7 +207,7 @@ class CollectorController {
       connection.query(cat, (catErr, categories) => {
         if (catErr) throw catErr;
         console.log("----------------------------",collections, categories)
-        res.render ('./forms/addItem', {title: 'Add Item', id, collections, categories, validations: [], values: {}});
+        res.render ('./forms/addItem', {title: 'Add Item', id, collections, categories, validations: [], values: {}, result: []});
       })
     })
 
@@ -206,7 +217,10 @@ class CollectorController {
   addItem = (req, res) => {
 
     const {id} = req.params;
+    const {item_name, item_purchaseyear, item_description, collection_id, category_id} = req.body;
+    const result = [{item_name, item_purchaseyear, item_description, collection_id, category_id}];
     const errors = validationResult(req);
+    
 
     if(!errors.isEmpty()){
       const values = req.body;
@@ -220,7 +234,7 @@ class CollectorController {
       if (collErr) throw collErr;
       connection.query(cat, (catErr, categories) => {
         if (catErr) throw catErr;
-        res.render ('./forms/addItem', {title: 'Add Item', id, collections, categories, validations, values});
+        res.render ('./forms/addItem', {title: 'Add Item', id, result: result[0], collections, categories, validations, values});
       })
     })
     }else{
@@ -234,7 +248,7 @@ class CollectorController {
   
       connection.query(sql, [item_name, item_purchaseyear, item_description, img, collection_id, category_id, id], err => {
         if (err) throw err;
-        res.redirect(`/collectors/${id}`)
+        res.redirect(`/collectors/${id}/logged`)
       })
     }
 
@@ -311,7 +325,7 @@ class CollectorController {
       let sql2 = 'UPDATE item SET item_name = ?, item_purchaseyear = ?, item_description = ?, collection_id = ?, category_id = ? WHERE item_id = ?';
       connection.query(sql2, [item_name, item_purchaseyear, item_description, collection_id, category_id, itemId], err => {
         if (err) throw err;
-        res.redirect(`/collectors/${id}`)
+        res.redirect(`/collectors/${id}/logged`)
       })
     }
 
@@ -327,6 +341,48 @@ class CollectorController {
 
       res.redirect(`/collectors/${id}/logged`)
     })
+  }
+
+  showEditCollectorForm = (req, res) => {
+    const {id} = req.params;
+
+    let sql = 'SELECT * FROM collector WHERE collector_id = ? AND is_deleted = 0'
+
+
+    connection.query(sql, [id], (err, result) => {
+      if (err) throw err;
+
+      res.render('./forms/editCollector', {title: 'Edit Collector', result: result[0], validations: [], values: {}});
+    })
+  }
+
+  editCollector = (req, res) => {
+    const {id} = req.params;
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+      const values = req.body;
+      const validations = errors.array();
+      let sql = 'SELECT * FROM collector WHERE collector_id = ? AND is_deleted = 0'
+
+
+      connection.query(sql, [id], (err, result) => {
+        if (err) throw err;
+
+        res.render('./forms/editCollector', {title: 'Edit Collector', result: result[0], validations, values});
+    })
+    }else{
+
+      const{nick, name, last_name, email, phone} = req.body;
+
+      let sql = 'UPDATE collector SET nick = ?, name = ?, last_name = ?, email = ?, phone = ? WHERE collector_id = ?' 
+
+      connection.query(sql, [nick, name, last_name, email, phone, id], err => {
+        if (err) throw err;
+        res.redirect(`/collectors/${id}/logged`);
+      })
+    }
   }
 }
 

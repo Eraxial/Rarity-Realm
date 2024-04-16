@@ -6,6 +6,7 @@
     <title><%= title %></title>
     <link rel="shortcut icon" href="/images/assets/icon2.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <%- include('../includes/links.ejs') %>
     <link rel="stylesheet" href="/stylesheets/general.css">
     <link rel="stylesheet" href="/stylesheets/forms.css">
   </head>
@@ -15,7 +16,7 @@
       <%- include('../includes/navbar.ejs') %>
     </header>
 
-    <main>
+    <main class="d-flex flex-column justify-content-center" style="height: calc(100vh - 251.12px - 3rem);">
       <h1 class="text-center py-5">Register</h1>
       <form class="mx-auto" action="/collectors/register" method="post" enctype="multipart/form-data">
         <label >
@@ -55,6 +56,8 @@
         </div>
       </form>
     </main>
+
+    <%- include('../includes/footer.ejs') %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

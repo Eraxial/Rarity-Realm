@@ -15,6 +15,10 @@ router.get('/eraseCollection/:id', controller.eraseCollection);
 
 router.get('/eraseItem/:id', controller.eraseItem);
 
+router.get('/editItem/:id', controller.showEditItem);
+
+router.post('/editItem/:id', controller.editItem);
+
 router.get('/editCollector/:id', controller.showEditCollectorForm);
 
 router.post('/editCollector/:id', collectorValidator, controller.editCollector);
